@@ -21,6 +21,7 @@ import com.svalero.globalfeed.contract.post.RegisterPostContract;
 import com.svalero.globalfeed.db.FeedAppDatabase;
 import com.svalero.globalfeed.domain.PersistData;
 import com.svalero.globalfeed.domain.Post;
+import com.svalero.globalfeed.domain.dto.PostDTO;
 import com.svalero.globalfeed.presenter.post.EditPostPresenter;
 import com.svalero.globalfeed.presenter.post.RegisterPostPresenter;
 
@@ -34,7 +35,7 @@ public class AddPostView extends AppCompatActivity  implements RegisterPostContr
     private PersistData persistData;
     private Button button;
     String username;
-    String userId;
+    long userId;
     Post postEdit;
 
     @Override
@@ -58,7 +59,7 @@ public class AddPostView extends AppCompatActivity  implements RegisterPostContr
 
         Intent intentFrom = getIntent();
         username = intentFrom.getStringExtra("username");
-        userId = intentFrom.getStringExtra("userId");
+        userId = intentFrom.getLongExtra("userId", 0L);
         postEdit = (Post) intentFrom.getSerializableExtra("editPost");
         Log.i("RegisterPostView", "onCreate - Intent Username: " + username);
         Log.i("RegisterPostView", "onCreate - Intent Post: " + postEdit);
@@ -89,13 +90,12 @@ public class AddPostView extends AppCompatActivity  implements RegisterPostContr
 
     public void register(View view) {
         String message = etMessage.getText().toString();
-        String postDate= LocalDateTime.now().toString();
-
+        Log.i("UserID:", String.valueOf(userId));
         if (postEdit != null) {
-            Post post = new Post(postEdit.getId(), message, postDate, 0, postEdit.getUserPost());
+            Post post = new Post(postEdit.getId(), message, postEdit.getPostDate(),postEdit.getLikes(), postEdit.getUserPost());
             editPostPresenter.editPost(post, persistData.getToken());
         } else {
-            Post post = new Post(message, postDate, 0, Integer.parseInt(userId));
+            PostDTO post = new PostDTO(message,userId);
             registerPostPresenter.registerPost(post, persistData.getToken());
         }
     }

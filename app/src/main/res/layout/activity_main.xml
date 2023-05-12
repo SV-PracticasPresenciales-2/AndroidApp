@@ -37,11 +37,23 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:onClick="logout"
+                android:paddingTop="5dp"
+                android:text="@string/logout"
+                android:visibility="gone"
+                app:layout_constraintBottom_toTopOf="@+id/linearLayout2" />
+
             <LinearLayout
+                android:id="@+id/linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:weightSum="3"
+                android:weightSum="2"
                 app:layout_constraintBottom_toBottomOf="@+id/rvListPosts"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
@@ -53,6 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:onClick="addPostNav"
+                    android:paddingTop="5dp"
                     android:text="AddPost" />
 
             </LinearLayout>

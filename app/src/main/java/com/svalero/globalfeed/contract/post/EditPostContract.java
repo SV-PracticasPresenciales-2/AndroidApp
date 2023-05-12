@@ -1,6 +1,7 @@
 package com.svalero.globalfeed.contract.post;
 
 import com.svalero.globalfeed.domain.Post;
+import com.svalero.globalfeed.domain.dto.PostDTO;
 
 public interface EditPostContract {
     interface Model {

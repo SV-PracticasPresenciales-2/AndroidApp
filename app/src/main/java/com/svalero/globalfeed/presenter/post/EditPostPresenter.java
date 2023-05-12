@@ -2,6 +2,7 @@ package com.svalero.globalfeed.presenter.post;
 
 import com.svalero.globalfeed.contract.post.EditPostContract;
 import com.svalero.globalfeed.domain.Post;
+import com.svalero.globalfeed.domain.dto.PostDTO;
 import com.svalero.globalfeed.model.post.EditPostModel;
 import com.svalero.globalfeed.view.AddPostView;
 

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.LoginView">
+    tools:context=".view.AddUserView">
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -20,51 +20,82 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/loginTextUsername"
+            android:id="@+id/registerTextUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/loginUsername"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/etLoginUsername"
+            android:id="@+id/etRegisterUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName" />
 
         <TextView
-            android:id="@+id/loginPassword"
+            android:id="@+id/registerPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/loginPassword" />
 
         <EditText
-            android:id="@+id/etLoginPassword"
+            android:id="@+id/etRegisterPassword"
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:ems="10"
             android:inputType="textPassword" />
 
         <TextView
-            android:id="@+id/textView4"
+            android:id="@+id/registerName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/loginForgot" />
+            android:text="@string/loginName" />
+
+        <EditText
+            android:id="@+id/etRegisterName"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:inputType="text" />
+        <TextView
+            android:id="@+id/registerBio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loginBio" />
+
+        <EditText
+            android:id="@+id/etRegisterBio"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:inputType="text" />
+        <TextView
+            android:id="@+id/registerPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/loginPhone" />
+
+        <EditText
+            android:id="@+id/etRegisterPhone"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:ems="10"
+            android:inputType="phone" />
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="login"
-            android:text="@string/loginButton" />
+            android:onClick="register"
+            android:text="@string/register" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:onClick="addUserNav"
-            android:text="@string/register" />
+            android:onClick="returnNav"
+            android:text="@string/backButton" />
 
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

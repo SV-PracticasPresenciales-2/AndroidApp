@@ -19,7 +19,7 @@ public class Post {
     private Integer likes;
     //todo revisar String
     private User userPost;
-    private int userId;
+    private long userId;
 
     public Post(long id, String message, String postDate, Integer likes, User userPost) {
         this.id = id;
@@ -29,10 +29,12 @@ public class Post {
         this.userPost = userPost;
     }
 
-    public Post(String message, String postDate, Integer likes, int userId) {
+    public Post(String message, String postDate, Integer likes, long userId) {
         this.message = message;
         this.postDate = postDate;
         this.likes = likes;
         this.userId = userId;
     }
+
+
 }

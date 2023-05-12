@@ -5,6 +5,7 @@ import com.svalero.globalfeed.api.GlobalFeedApiInterface;
 import com.svalero.globalfeed.api.GlobalFeedSecureApi;
 import com.svalero.globalfeed.contract.post.RegisterPostContract;
 import com.svalero.globalfeed.domain.Post;
+import com.svalero.globalfeed.domain.dto.PostDTO;
 
 
 import retrofit2.Call;
@@ -13,7 +14,7 @@ import retrofit2.Response;
 
 public class RegisterPostModel implements RegisterPostContract.Model {
     @Override
-    public void registerPost(String token, Post post, RegisterPostContract.Model.OnRegisterPostListener listener) {
+    public void registerPost(String token, PostDTO post, RegisterPostContract.Model.OnRegisterPostListener listener) {
         GlobalFeedApiInterface api = GlobalFeedSecureApi.buildInstance(token);
         Call<Post> postCall = api.addPost(post);
         postCall.enqueue(new Callback<Post>() {

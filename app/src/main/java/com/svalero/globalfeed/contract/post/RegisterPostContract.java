@@ -1,6 +1,7 @@
 package com.svalero.globalfeed.contract.post;
 
 import com.svalero.globalfeed.domain.Post;
+import com.svalero.globalfeed.domain.dto.PostDTO;
 
 public interface RegisterPostContract {
     interface Model{
@@ -8,7 +9,7 @@ public interface RegisterPostContract {
             void onRegisterPostSuccess(Post post);
             void onRegisterPostError(String message);
         }
-        void registerPost(String token, Post post, OnRegisterPostListener listener);
+        void registerPost(String token, PostDTO post, OnRegisterPostListener listener);
     }
 
     interface View {
@@ -17,6 +18,7 @@ public interface RegisterPostContract {
     }
 
     interface Presenter {
-        void registerPost(Post post, String token);
+
+        void registerPost(PostDTO post, String token);
     }
 }

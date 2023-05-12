@@ -31,19 +31,24 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.material.snackbar.BaseTransientBottomBar;
+import com.google.android.material.snackbar.Snackbar;
 import com.svalero.globalfeed.R;
 import com.svalero.globalfeed.adapter.PostAdapter;
 import com.svalero.globalfeed.contract.post.PostListContract;
+import com.svalero.globalfeed.contract.user.UserDetailContract;
 import com.svalero.globalfeed.db.FeedAppDatabase;
 import com.svalero.globalfeed.domain.PersistData;
 import com.svalero.globalfeed.domain.Post;
+import com.svalero.globalfeed.domain.User;
 import com.svalero.globalfeed.presenter.post.PostListPresenter;
+import com.svalero.globalfeed.presenter.user.UserDetailPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.prefs.Preferences;
 
-public class MainActivity extends AppCompatActivity implements PostListContract.View {
+public class MainActivity extends AppCompatActivity implements PostListContract.View, UserDetailContract.View {
     private List<Post> postList;
     private List<Post> postListFull;
     private PostAdapter adapter;
@@ -51,17 +56,22 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
     private PersistData persistData;
     private EditText etsearch;
     private Button btnAddPost;
+    private Button btnLogout;
     String username;
+    long userId = 0L;
+    private UserDetailPresenter userDetailPresenter;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        userDetailPresenter = new UserDetailPresenter(this);
 
         Intent intentFrom = getIntent();
         username = intentFrom.getStringExtra("username");
         Log.i("MainActivity", "onCreate - " + username);
+        btnLogout = findViewById(R.id.btnLogout);
 
         final FeedAppDatabase db = Room.databaseBuilder(this, FeedAppDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
         setUpPreferences(db);
@@ -70,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
         presenter = new PostListPresenter(this);
         etsearch = findViewById(R.id.etSearch);
         btnAddPost = findViewById(R.id.btnAddPost);
+
         etsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -120,11 +131,18 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
             persistData = db.getPersistDataDAO().getPersistData();
             if (persistData != null) {
                 Log.i("MainActivity", "onCreate - Datos cargados!");
+                userDetailPresenter.getUser(persistData.getUsername());
+                Log.i("MainActivity", persistData.getUsername());
+                if (persistData.getToken().isEmpty()) {
+                    btnLogout.setVisibility(View.GONE);
+
+                }
                 //TODO: Autologin
             } else {
                 persistData = new PersistData(0, "", "", "", false, false, false);
                 db.getPersistDataDAO().insert(persistData);
                 Log.i("MainActivity", "onCreate - Datos creados!");
+                btnLogout.setVisibility(View.GONE);
             }
         } catch (SQLiteConstraintException sce) {
             Log.i("MainActivity", "onCreate - Error");
@@ -210,10 +228,39 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
 
     public void addPostNav(View view) {
         Intent intent = new Intent(this, LoginView.class);
-        if (persistData.getId() != 0L) {
-            Intent intent = new Intent(this, AddPostView.class);
-            intent.putExtra("userId", persistData.getId());
+        if (userId != 0L) {
+            intent = new Intent(this, AddPostView.class);
+            intent.putExtra("userId", userId);
         }
         startActivity(intent);
+    }
+
+    @Override
+    public void showError(String error) {
+    }
+
+    @Override
+    public void showUser(User user) {
+        if ((user != null) && (user.getId() != 0L)) {
+            btnLogout.setVisibility(View.VISIBLE);
+            userId = user.getId();
+            btnAddPost.setText(R.string.add_post);
+            Log.i("User cargado:", String.valueOf(user));
+        }
+    }
+
+    public void logout(View view) {
+        final FeedAppDatabase db = Room.databaseBuilder(this, FeedAppDatabase.class, DATABASE_NAME).allowMainThreadQueries().build();
+        persistData = new PersistData(0, "", "", "", false, false, false);
+        try {
+            db.getPersistDataDAO().update(persistData);
+
+        } catch (SQLiteConstraintException sce) {
+        } finally {
+            db.close();
+        }
+        btnLogout.setVisibility(View.GONE);
+        finish();
+        startActivity(getIntent());
     }
 }
