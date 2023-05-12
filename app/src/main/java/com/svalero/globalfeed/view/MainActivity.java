@@ -23,8 +23,10 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -48,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
     private PostListPresenter presenter;
     private PersistData persistData;
     private EditText etsearch;
+    private Button btnAddPost;
     String username;
 
     @Override
@@ -55,7 +58,6 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        checkLocationPermission();
 
         Intent intentFrom = getIntent();
         username = intentFrom.getStringExtra("username");
@@ -67,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
 
         presenter = new PostListPresenter(this);
         etsearch = findViewById(R.id.etSearch);
+        btnAddPost = findViewById(R.id.btnAddPost);
         etsearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -104,6 +107,12 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
         });
 
         initializeRecyclerView(intentFrom);
+
+        Log.i("Persist data:", persistData.toString());
+
+        if (persistData.getId() == 0L) {
+            btnAddPost.setText(R.string.Login);
+        }
     }
 
     private void setUpPreferences(FeedAppDatabase db) {
@@ -199,14 +208,12 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
         Toast.makeText(this, name, Toast.LENGTH_LONG).show();
     }
 
-    private void checkLocationPermission() {
-
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
-            } else {
-                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1000);
-            }
+    public void addPostNav(View view) {
+        Intent intent = new Intent(this, LoginView.class);
+        if (persistData.getId() != 0L) {
+            Intent intent = new Intent(this, AddPostView.class);
+            intent.putExtra("userId", persistData.getId());
         }
-
+        startActivity(intent);
     }
 }

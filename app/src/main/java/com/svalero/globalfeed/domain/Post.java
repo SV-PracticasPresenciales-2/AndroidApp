@@ -19,4 +19,20 @@ public class Post {
     private Integer likes;
     //todo revisar String
     private User userPost;
+    private int userId;
+
+    public Post(long id, String message, String postDate, Integer likes, User userPost) {
+        this.id = id;
+        this.message = message;
+        this.postDate = postDate;
+        this.likes = likes;
+        this.userPost = userPost;
+    }
+
+    public Post(String message, String postDate, Integer likes, int userId) {
+        this.message = message;
+        this.postDate = postDate;
+        this.likes = likes;
+        this.userId = userId;
+    }
 }
