@@ -12,4 +12,8 @@
     <string name="logout">Logout</string>
     <string name="add_post">Add Post</string>
     <string name="preferences">Preferences</string>
+    <string name="registerButton">Post!</string>
+    <string name="backButton">Return</string>
+    <string name="editButton">Edit post</string>
+    <string name="Login">Login</string>
 </resources>
