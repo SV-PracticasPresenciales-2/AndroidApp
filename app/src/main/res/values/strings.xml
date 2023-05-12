@@ -12,4 +12,8 @@
     <string name="logout">Logout</string>
     <string name="add_post">Add Post</string>
     <string name="preferences">Preferences</string>
+    <string name="loginUsername">"Username: "</string>
+    <string name="loginPassword">"Password: "</string>
+    <string name="loginForgot">Forgot the password?</string>
+    <string name="loginButton">Login</string>
 </resources>

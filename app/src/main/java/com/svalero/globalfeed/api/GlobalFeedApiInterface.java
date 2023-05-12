@@ -1,6 +1,8 @@
 package com.svalero.globalfeed.api;
 
+import com.svalero.globalfeed.domain.PersonLogin;
 import com.svalero.globalfeed.domain.Post;
+import com.svalero.globalfeed.domain.Token;
 import com.svalero.globalfeed.domain.User;
 import com.svalero.globalfeed.domain.dto.UserDTO;
 
@@ -53,9 +55,8 @@ public interface GlobalFeedApiInterface {
     @DELETE("users/{id}")
     Call<Void> deleteUser(@Path("id") long id);
 
-    //todo
-    /*
+
     @POST("token")
     Call<Token> getToken(@Body PersonLogin personLogin);
-*/
+
 }
