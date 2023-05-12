@@ -18,7 +18,8 @@ public class User {
     private String password;
     private String name;
     private String biography;
-    private LocalDate registerDate;
+    //todo revisar string
+    private String registerDate;
     private Integer phoneNumber;
     private boolean active = true;
     private List<Post> postList;

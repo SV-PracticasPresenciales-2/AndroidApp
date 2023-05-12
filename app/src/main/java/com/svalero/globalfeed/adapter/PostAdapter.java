@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,7 +32,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
     private String token;
     //private View snackBarView;
 
-    public PostAdapter(Context context, List<Post> postList, Intent intentFrom, String token){
+    public PostAdapter(Context context, List<Post> postList, Intent intentFrom, String token) {
         this.context = context;
         this.postList = postList;
         this.intentFrom = intentFrom;
@@ -53,7 +54,9 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
     @Override
     public void onBindViewHolder(SuperheroHolder holder, int position) {
         holder.postMessage.setText(postList.get(position).getMessage());
-
+        holder.postLikes.setText(postList.get(position).getLikes().toString()+ " Likes!");
+        holder.postUsername.setText(postList.get(position).getUserPost().getUsername());
+        holder.postDate.setText(postList.get(position).getPostDate());
     }
 
     @Override
@@ -78,19 +81,26 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
 
     public class SuperheroHolder extends RecyclerView.ViewHolder {
         public TextView postMessage;
+        public TextView postLikes;
+        public TextView postUsername;
+        public TextView postDate;
 
         //todo textViews
 
 
-        public Button postDelete;
-        public ImageView imageView;
+        public ImageButton postDelete;
         public View parentView;
 
-        public SuperheroHolder(View view){
+        public SuperheroHolder(View view) {
             super(view);
             parentView = view;
 
             postMessage = view.findViewById(R.id.tvListPostMessage);
+            postLikes = view.findViewById(R.id.tvListPostLikes);
+
+            postUsername = view.findViewById(R.id.tvListPostUsername);
+
+            postDate = view.findViewById(R.id.tvListPostDate);
 
             postDelete = view.findViewById(R.id.bListDelete);
 
@@ -100,7 +110,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
     }
 
 
-    private void deletePost(int adapterPosition){
+    private void deletePost(int adapterPosition) {
         Post post = postList.get(adapterPosition);
         deletePostPresenter.deletePost(post.getId(), token);
         //TODO: Si no se borra correctamente, no borrar de la lista
@@ -131,7 +141,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             postList.clear();
-            postList.addAll((List)results.values);
+            postList.addAll((List) results.values);
             notifyDataSetChanged();
         }
     }

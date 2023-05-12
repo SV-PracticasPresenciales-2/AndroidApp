@@ -14,7 +14,9 @@ public class Post {
 
     private long id;
     private String message;
-    private LocalDateTime postDate;
+    //todo revisar String
+    private String postDate;
     private Integer likes;
+    //todo revisar String
     private User userPost;
 }

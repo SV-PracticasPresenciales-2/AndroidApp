@@ -39,6 +39,7 @@ import com.svalero.globalfeed.presenter.post.PostListPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.prefs.Preferences;
 
 public class MainActivity extends AppCompatActivity implements PostListContract.View {
     private List<Post> postList;
@@ -70,7 +71,10 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 postList.clear();
+                Log.i("clear postList", String.valueOf(postList.size()));
                 postList.addAll(postListFull);
+                Log.i("postList", String.valueOf(postList.size()));
+                Log.i("postListfull", String.valueOf(postListFull.size()));
             }
 
             @Override
@@ -143,10 +147,10 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
         }
         return true;
     }
-/*
+
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.menuLogin) {
+       /* if (item.getItemId() == R.id.menuLogin) {
             Intent intent = new Intent(this, LoginView.class);
             startActivity(intent);
             return true;
@@ -154,33 +158,14 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
             Intent intent = new Intent(this, RegisterPostView.class);
             intent.putExtra("username", username);
             startActivity(intent);
-        } else if (item.getItemId() == R.id.menuLogout) {
-            AlertDialog.Builder deleteDialog = new AlertDialog.Builder(this);
-            deleteDialog.setMessage(R.string.confirmationMessage).setTitle(R.string.logoutMessage)
-                    .setPositiveButton(R.string.confirmationYes, (dialog, id) -> {
-                        Intent intent = new Intent(this, MainActivity.class);
-                        startActivity(intent);
-                    }).setNegativeButton(R.string.confirmationNo, (dialog, id) -> {
-                        dialog.dismiss();
-                    });
-            AlertDialog dialog = deleteDialog.create();
-            dialog.show();
-        } else if (item.getItemId() == R.id.menuFavourite) {
-            Intent intent = new Intent(this, FavouritesView.class);
-            intent.putExtra("username", username);
-            startActivity(intent);
-        } else if (item.getItemId() == R.id.menuInventories) {
-            Intent intent = new Intent(this, InventoryListView.class);
-            intent.putExtra("username", username);
-            startActivity(intent);
+
         } else if (item.getItemId() == R.id.menuPreferences) {
             Intent intent = new Intent(this, Preferences.class);
             intent.putExtra("username", username);
             startActivity(intent);
-        }
+        }*/
         return false;
     }
-    */
 
 
     private void initializeRecyclerView(Intent intentFrom) {
@@ -204,7 +189,8 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
     public void showPosts(List<Post> postList) {
         this.postList.clear();
         this.postList.addAll(postList);
-        postListFull.addAll(postList);
+        this.postListFull.clear();
+        this.postListFull.addAll(postList);
         adapter.notifyDataSetChanged();
     }
 
