@@ -1,13 +1,9 @@
 package com.svalero.globalfeed.api;
 
-import com.svalero.storeapp.domain.Inventory;
-import com.svalero.storeapp.domain.InventoryMapDTO;
-import com.svalero.storeapp.domain.Person;
-import com.svalero.storeapp.domain.PersonLogin;
-import com.svalero.storeapp.domain.Product;
-import com.svalero.storeapp.domain.Review;
-import com.svalero.storeapp.domain.ReviewDTO;
-import com.svalero.storeapp.domain.Token;
+import com.svalero.globalfeed.domain.Post;
+import com.svalero.globalfeed.domain.User;
+import com.svalero.globalfeed.domain.dto.UserDTO;
+
 
 import java.util.List;
 
@@ -21,53 +17,45 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface GlobalFeedApiInterface {
-    //Products
-    @GET("products")
-    Call<List<Product>> getProducts();
+    //Posts
+    @GET("posts")
+    Call<List<Post>> getPosts();
 
-    @GET("products/{id}")
-    Call<Product> getProduct(@Path("id") long id);
+    @GET("posts/{id}")
+    Call<Post> getPost(@Path("id") long id);
 
-    @POST("products")
-    Call<Product> addProduct(@Body Product product);
+    @POST("posts")
+    Call<Post> addPost(@Body Post post);
 
-    @PUT("products/{id}")
-    Call<Product> editProduct(@Path("id")long id, @Body Product product);
+    @PUT("posts/{id}")
+    Call<Post> editPost(@Path("id")long id, @Body Post post);
 
-    @DELETE("products/{id}")
-    Call<Void> deleteProduct(@Path("id") long id);
+    @DELETE("posts/{id}")
+    Call<Void> deletePost(@Path("id") long id);
 
 
-    //Reviews
-    @GET("reviews")
-    Call<List<Review>> getReviews();
+    //Users
+    @GET("users")
+    Call<List<User>> getUsers();
 
-    @GET("reviews/{id}")
-    Call<Review> getReview(@Path("id") long id);
+    @GET("users/{id}")
+    Call<User> getUser(@Path("id") long id);
 
-    @GET("reviews/")
-    Call<List<Review>> getReviewsByProduct(@Query("productId") long id);
+    @GET("users/")
+    Call<List<User>> getUsersByPost(@Query("postId") long id);
 
-    @POST("reviews")
-    Call<Review> addReview(@Body ReviewDTO review);
+    @POST("users")
+    Call<User> addUser(@Body UserDTO user);
 
-    @PUT("reviews/{id}")
-    Call<Review> editReview(@Path("id")long id, @Body Review review);
+    @PUT("users/{id}")
+    Call<User> editUser(@Path("id")long id, @Body User user);
 
-    @DELETE("reviews/{id}")
-    Call<Void> deleteReview(@Path("id") long id);
+    @DELETE("users/{id}")
+    Call<Void> deleteUser(@Path("id") long id);
 
+    //todo
+    /*
     @POST("token")
     Call<Token> getToken(@Body PersonLogin personLogin);
-
-    //Person
-    @GET("persons")
-    Call<List<Person>> getPersonByUsername(@Query("username") String username);
-
-    //Inventory
-    @GET("inventories")
-    Call<List<Inventory>> getAllInventories();
-
-    @POST("inventories/{id}/waypoint")
-    Call<Inventory> addWaypoint(@Path("id")long id, @Body InventoryMapDTO inventoryMapDTO);
+*/
 }

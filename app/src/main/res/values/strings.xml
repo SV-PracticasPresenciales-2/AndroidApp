@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">GlobalFeed</string>
+    <string name="app_name">Global Feed</string>
+    <string name="title_activity_main">Global Feed</string>
 </resources>
