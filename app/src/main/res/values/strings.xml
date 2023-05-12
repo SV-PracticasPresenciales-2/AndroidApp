@@ -12,8 +12,15 @@
     <string name="logout">Logout</string>
     <string name="add_post">Add Post</string>
     <string name="preferences">Preferences</string>
+<<<<<<< HEAD
     <string name="registerButton">Post!</string>
     <string name="backButton">Return</string>
     <string name="editButton">Edit post</string>
     <string name="Login">Login</string>
+=======
+    <string name="loginUsername">"Username: "</string>
+    <string name="loginPassword">"Password: "</string>
+    <string name="loginForgot">Forgot the password?</string>
+    <string name="loginButton">Login</string>
+>>>>>>> feature/login
 </resources>
