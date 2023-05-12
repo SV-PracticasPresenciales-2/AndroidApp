@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Global Feed</string>
     <string name="title_activity_main">Global Feed</string>
+    <string name="search">Search message</string>
+    <string name="PostDate">Post Date:</string>
+    <string name="username">Username: </string>
+    <string name="likes">Likes: </string>
+    <string name="message">Message: </string>
+    <string name="delete">Delete</string>
+    <string name="favourite">Favourites</string>
+    <string name="loginMenu">Menu</string>
+    <string name="logout">Logout</string>
+    <string name="add_post">Add Post</string>
+    <string name="preferences">Preferences</string>
 </resources>
