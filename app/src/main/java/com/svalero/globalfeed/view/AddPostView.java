@@ -27,7 +27,7 @@ import com.svalero.globalfeed.presenter.post.RegisterPostPresenter;
 
 import java.time.LocalDateTime;
 
-public class AddPostView extends AppCompatActivity  implements RegisterPostContract.View, EditPostContract.View{
+public class AddPostView extends AppCompatActivity implements RegisterPostContract.View, EditPostContract.View {
 
     private EditText etMessage;
     private RegisterPostPresenter registerPostPresenter;
@@ -55,7 +55,7 @@ public class AddPostView extends AppCompatActivity  implements RegisterPostContr
         }
 
         etMessage = findViewById(R.id.registerPostMessage);
-
+        button = findViewById(R.id.registerPostRegister);
 
         Intent intentFrom = getIntent();
         username = intentFrom.getStringExtra("username");
@@ -92,10 +92,10 @@ public class AddPostView extends AppCompatActivity  implements RegisterPostContr
         String message = etMessage.getText().toString();
         Log.i("UserID:", String.valueOf(userId));
         if (postEdit != null) {
-            Post post = new Post(postEdit.getId(), message, postEdit.getPostDate(),postEdit.getLikes(), postEdit.getUserPost());
-            editPostPresenter.editPost(post, persistData.getToken());
+            PostDTO post = new PostDTO(message, postEdit.getUserPost().getId());
+            editPostPresenter.editPost(postEdit.getId(), post, persistData.getToken());
         } else {
-            PostDTO post = new PostDTO(message,userId);
+            PostDTO post = new PostDTO(message, userId);
             registerPostPresenter.registerPost(post, persistData.getToken());
         }
     }

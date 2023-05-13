@@ -18,8 +18,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.svalero.globalfeed.R;
 import com.svalero.globalfeed.contract.post.DeletePostContract;
+import com.svalero.globalfeed.contract.post.EditPostContract;
 import com.svalero.globalfeed.domain.Post;
 import com.svalero.globalfeed.presenter.post.DeletePostPresenter;
+import com.svalero.globalfeed.presenter.post.EditPostPresenter;
+import com.svalero.globalfeed.view.AddPostView;
 import com.svalero.globalfeed.view.UserDetailsView;
 
 import java.util.ArrayList;
@@ -56,7 +59,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
     public void onBindViewHolder(SuperheroHolder holder, int position) {
         holder.postMessage.setText(postList.get(position).getMessage());
         holder.postLikes.setText(postList.get(position).getLikes().toString() + " Likes!");
-        holder.postUsername.setText(postList.get(position).getUserPost().getUsername());
+        holder.postUsername.setText("@" + postList.get(position).getUserPost().getUsername());
         holder.postDate.setText(postList.get(position).getPostDate());
     }
 
@@ -105,6 +108,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
 
             postDelete = view.findViewById(R.id.bListDelete);
 
+            postMessage.setOnClickListener(v -> editPost(getAdapterPosition()));
             postUsername.setOnClickListener(v -> userDetails(getAdapterPosition()));
             postDelete.setOnClickListener(v -> deletePost(getAdapterPosition()));
         }
@@ -117,6 +121,14 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
         //TODO: Si no se borra correctamente, no borrar de la lista
         postList.remove(adapterPosition);
         notifyItemRemoved(adapterPosition);
+    }
+
+    private void editPost(int adapterPosition) {
+        Post post = postList.get(adapterPosition);
+        Intent intent = new Intent(context, AddPostView.class);
+        intent.putExtra("userId", postList.get(adapterPosition).getUserPost().getId());
+        intent.putExtra("editPost", post);
+        context.startActivity(intent);
     }
 
     private void userDetails(int adapterPosition) {

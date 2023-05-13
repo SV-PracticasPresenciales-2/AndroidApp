@@ -34,7 +34,7 @@ public interface GlobalFeedApiInterface {
     Call<Post> addPost(@Body PostDTO post);
 
     @PUT("post/{id}")
-    Call<Post> editPost(@Path("id") long id, @Body Post post);
+    Call<Post> editPost(@Path("id") long id, @Body PostDTO post);
 
     @DELETE("post/{id}")
     Call<Void> deletePost(@Path("id") long id);

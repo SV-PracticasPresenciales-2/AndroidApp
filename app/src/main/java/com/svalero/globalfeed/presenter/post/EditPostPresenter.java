@@ -11,19 +11,19 @@ public class EditPostPresenter implements EditPostContract.Presenter, EditPostCo
     private EditPostModel model;
     private AddPostView view;
 
-    public EditPostPresenter(AddPostView view){
+    public EditPostPresenter(AddPostView view) {
         model = new EditPostModel();
         this.view = view;
     }
 
     @Override
-    public void editPost(Post post, String token) {
-        model.editPost(token, post, this);
+    public void editPost(long postId, PostDTO post, String token) {
+        model.editPost(token, postId, post, this);
     }
 
     @Override
     public void onEditPostSuccess(Post post) {
-        view.showMessage("El posto: " + post.getId() + " se ha editado correctamente!");
+        view.showMessage("El posto: " + post.getMessage() + " se ha editado correctamente!");
     }
 
     @Override

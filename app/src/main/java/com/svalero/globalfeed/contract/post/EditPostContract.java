@@ -7,17 +7,21 @@ public interface EditPostContract {
     interface Model {
         interface OnEditPostListener {
             void onEditPostSuccess(Post post);
+
             void onEditPostError(String message);
         }
-        void editPost(String token, Post post, OnEditPostListener listener);
+
+        void editPost(String token, long postid, PostDTO post, OnEditPostListener listener);
     }
+
     interface View {
         void showError(String message);
+
         void showMessage(String message);
     }
 
     interface Presenter {
-        void editPost(Post post, String token);
+          void editPost(long postId, PostDTO post, String token);
     }
 
 }
