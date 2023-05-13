@@ -11,7 +11,7 @@ public class PostListPresenter implements PostListContract.Presenter, PostListCo
     private PostListModel model;
     private PostListContract.View view;
 
-    public PostListPresenter(PostListContract.View view){
+    public PostListPresenter(PostListContract.View view) {
         this.view = view;
         this.model = new PostListModel();
     }
@@ -19,6 +19,11 @@ public class PostListPresenter implements PostListContract.Presenter, PostListCo
     @Override
     public void loadAllPosts() {
         model.loadAllPosts(this);
+    }
+
+    @Override
+    public void loadAllPostsByUser(String username) {
+        model.loadAllPostsByUser(username, this);
     }
 
     @Override

@@ -2,7 +2,7 @@ package com.svalero.globalfeed.contract.user;
 
 import com.svalero.globalfeed.domain.User;
 
-public interface UserDetailContract {
+public interface UserDetailsContract {
     interface Model {
         interface OnUserDetailListener {
             void onUserDetailSuccess(User user);

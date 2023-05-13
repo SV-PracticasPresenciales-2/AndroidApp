@@ -1,21 +1,23 @@
 package com.svalero.globalfeed.presenter.user;
 
-import com.svalero.globalfeed.contract.user.UserDetailContract;
+import com.svalero.globalfeed.contract.user.UserDetailsContract;
 import com.svalero.globalfeed.domain.User;
 import com.svalero.globalfeed.model.user.UserDetailModel;
-import com.svalero.globalfeed.view.LoginView;
 import com.svalero.globalfeed.view.MainActivity;
+import com.svalero.globalfeed.view.UserDetailsView;
 
 
-public class UserDetailPresenter implements UserDetailContract.Presenter, UserDetailContract.Model.OnUserDetailListener {
+public class UserDetailsPresenter implements UserDetailsContract.Presenter, UserDetailsContract.Model.OnUserDetailListener {
 
     private UserDetailModel model;
-    private MainActivity view;
+    private UserDetailsContract.View view;
 
-    public UserDetailPresenter(MainActivity view){
+
+    public UserDetailsPresenter(MainActivity view) {
         model = new UserDetailModel();
         this.view = view;
     }
+
     @Override
     public void onUserDetailSuccess(User user) {
         view.showUser(user);

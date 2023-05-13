@@ -36,4 +36,27 @@ public class PostListModel implements PostListContract.Model {
             }
         });
     }
+    @Override
+    public void loadAllPostsByUser(String username, OnLoadPostListener listener) {
+        GlobalFeedApiInterface apiInterface = GlobalFeedApi.buildInstance();
+        Call<List<Post>> callPosts = apiInterface.getPostsByUsername(username);
+        Log.d("posts", "Llamada desde model");
+        callPosts.enqueue(new Callback<List<Post>>() {
+            @Override
+            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+                Log.d("posts", "Llamada desde model ok");
+                List<Post> postList = response.body();
+                listener.onLoadPostsSuccess(postList);
+            }
+
+            @Override
+            public void onFailure(Call<List<Post>> call, Throwable t) {
+                Log.d("posts", "Llamada desde model error");
+                Log.d("posts", t.getMessage());
+                t.printStackTrace();
+                String message = "Error al conseguir todos los postos";
+                listener.onLoadPostsError(t.getMessage());
+            }
+        });
+    }
 }

@@ -4,7 +4,6 @@ import static com.svalero.globalfeed.util.Constants.DATABASE_NAME;
 
 import android.content.Intent;
 import android.database.sqlite.SQLiteConstraintException;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,14 +18,11 @@ import com.google.android.material.snackbar.BaseTransientBottomBar;
 import com.google.android.material.snackbar.Snackbar;
 import com.svalero.globalfeed.R;
 import com.svalero.globalfeed.contract.token.TokenContract;
-import com.svalero.globalfeed.contract.user.UserDetailContract;
 import com.svalero.globalfeed.db.FeedAppDatabase;
 import com.svalero.globalfeed.domain.PersistData;
 import com.svalero.globalfeed.domain.PersonLogin;
-import com.svalero.globalfeed.domain.User;
 import com.svalero.globalfeed.domain.Token;
 import com.svalero.globalfeed.presenter.token.TokenPresenter;
-import com.svalero.globalfeed.presenter.user.UserDetailPresenter;
 
 public class LoginView extends AppCompatActivity implements TokenContract.View {
 

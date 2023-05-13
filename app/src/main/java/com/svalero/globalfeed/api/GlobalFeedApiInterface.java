@@ -24,6 +24,9 @@ public interface GlobalFeedApiInterface {
     @GET("posts")
     Call<List<Post>> getPosts();
 
+    @GET("posts")
+    Call<List<Post>> getPostsByUsername(@Query("username") String username);
+
     @GET("posts/{id}")
     Call<Post> getPost(@Path("id") long id);
 
@@ -49,6 +52,7 @@ public interface GlobalFeedApiInterface {
 
     @GET("user")
     Call<User> getUserByUsername(@Query("username") String username);
+
     @POST("user")
     Call<User> addUser(@Body UserDTO user);
 

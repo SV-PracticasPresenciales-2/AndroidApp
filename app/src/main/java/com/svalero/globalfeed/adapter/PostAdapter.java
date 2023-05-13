@@ -20,6 +20,7 @@ import com.svalero.globalfeed.R;
 import com.svalero.globalfeed.contract.post.DeletePostContract;
 import com.svalero.globalfeed.domain.Post;
 import com.svalero.globalfeed.presenter.post.DeletePostPresenter;
+import com.svalero.globalfeed.view.UserDetailsView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +55,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
     @Override
     public void onBindViewHolder(SuperheroHolder holder, int position) {
         holder.postMessage.setText(postList.get(position).getMessage());
-        holder.postLikes.setText(postList.get(position).getLikes().toString()+ " Likes!");
+        holder.postLikes.setText(postList.get(position).getLikes().toString() + " Likes!");
         holder.postUsername.setText(postList.get(position).getUserPost().getUsername());
         holder.postDate.setText(postList.get(position).getPostDate());
     }
@@ -104,7 +105,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
 
             postDelete = view.findViewById(R.id.bListDelete);
 
-
+            postUsername.setOnClickListener(v -> userDetails(getAdapterPosition()));
             postDelete.setOnClickListener(v -> deletePost(getAdapterPosition()));
         }
     }
@@ -116,6 +117,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
         //TODO: Si no se borra correctamente, no borrar de la lista
         postList.remove(adapterPosition);
         notifyItemRemoved(adapterPosition);
+    }
+
+    private void userDetails(int adapterPosition) {
+        Post post = postList.get(adapterPosition);
+        Intent intent = new Intent(context, UserDetailsView.class);
+        intent.putExtra("user", post.getUserPost());
+        context.startActivity(intent);
     }
 
     class PostFilter extends Filter {

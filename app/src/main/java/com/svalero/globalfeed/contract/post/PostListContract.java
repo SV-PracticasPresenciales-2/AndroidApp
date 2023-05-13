@@ -5,20 +5,28 @@ import com.svalero.globalfeed.domain.Post;
 import java.util.List;
 
 public interface PostListContract {
-    interface Model{
+    interface Model {
         interface OnLoadPostListener {
+
             void onLoadPostsSuccess(List<Post> postList);
+
             void onLoadPostsError(String message);
         }
+
+        void loadAllPostsByUser(String username, OnLoadPostListener listener);
+
         void loadAllPosts(OnLoadPostListener listener);
     }
 
-    interface View{
+    interface View {
         void showPosts(List<Post> postList);
+
         void showMessage(String name);
     }
 
     interface Presenter {
         void loadAllPosts();
+
+        void loadAllPostsByUser(String username);
     }
 }

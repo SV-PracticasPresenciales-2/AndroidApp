@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.svalero.globalfeed.api.GlobalFeedApi;
 import com.svalero.globalfeed.api.GlobalFeedApiInterface;
-import com.svalero.globalfeed.contract.user.UserDetailContract;
+import com.svalero.globalfeed.contract.user.UserDetailsContract;
 import com.svalero.globalfeed.domain.User;
 
 
@@ -12,7 +12,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class UserDetailModel implements UserDetailContract.Model {
+public class UserDetailModel implements UserDetailsContract.Model {
     @Override
     public void getUserDetail(String username, OnUserDetailListener listener) {
         GlobalFeedApiInterface api = GlobalFeedApi.buildInstance();

@@ -4,17 +4,12 @@ import static com.svalero.globalfeed.util.Constants.DATABASE_NAME;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
-import android.Manifest;
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.Bundle;
 import android.text.Editable;
@@ -31,24 +26,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.BaseTransientBottomBar;
-import com.google.android.material.snackbar.Snackbar;
 import com.svalero.globalfeed.R;
 import com.svalero.globalfeed.adapter.PostAdapter;
 import com.svalero.globalfeed.contract.post.PostListContract;
-import com.svalero.globalfeed.contract.user.UserDetailContract;
+import com.svalero.globalfeed.contract.user.UserDetailsContract;
 import com.svalero.globalfeed.db.FeedAppDatabase;
 import com.svalero.globalfeed.domain.PersistData;
 import com.svalero.globalfeed.domain.Post;
 import com.svalero.globalfeed.domain.User;
 import com.svalero.globalfeed.presenter.post.PostListPresenter;
-import com.svalero.globalfeed.presenter.user.UserDetailPresenter;
+import com.svalero.globalfeed.presenter.user.UserDetailsPresenter;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.prefs.Preferences;
 
-public class MainActivity extends AppCompatActivity implements PostListContract.View, UserDetailContract.View {
+public class MainActivity extends AppCompatActivity implements PostListContract.View, UserDetailsContract.View {
     private List<Post> postList;
     private List<Post> postListFull;
     private PostAdapter adapter;
@@ -59,14 +51,14 @@ public class MainActivity extends AppCompatActivity implements PostListContract.
     private Button btnLogout;
     String username;
     long userId = 0L;
-    private UserDetailPresenter userDetailPresenter;
+    private UserDetailsPresenter userDetailPresenter;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        userDetailPresenter = new UserDetailPresenter(this);
+        userDetailPresenter = new UserDetailsPresenter(this);
 
         Intent intentFrom = getIntent();
         username = intentFrom.getStringExtra("username");
