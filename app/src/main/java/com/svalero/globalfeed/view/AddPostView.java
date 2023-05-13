@@ -99,4 +99,8 @@ public class AddPostView extends AppCompatActivity implements RegisterPostContra
             registerPostPresenter.registerPost(post, persistData.getToken());
         }
     }
+    public void returnNav(View view) {
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
 }

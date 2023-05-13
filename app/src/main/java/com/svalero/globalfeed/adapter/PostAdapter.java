@@ -2,6 +2,7 @@ package com.svalero.globalfeed.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,7 @@ import com.svalero.globalfeed.view.UserDetailsView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolder> implements DeletePostContract.View, Filterable {
     private Context context;
@@ -34,14 +36,16 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
     private Intent intentFrom;
     private DeletePostPresenter deletePostPresenter;
     private String token;
+    private String username;
     //private View snackBarView;
 
-    public PostAdapter(Context context, List<Post> postList, Intent intentFrom, String token) {
+    public PostAdapter(Context context, List<Post> postList, Intent intentFrom, String token, String username) {
         this.context = context;
         this.postList = postList;
         this.intentFrom = intentFrom;
         this.deletePostPresenter = new DeletePostPresenter(this);
         this.token = token;
+        this.username = username;
     }
 
     public Context getContext() {
@@ -57,6 +61,13 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
 
     @Override
     public void onBindViewHolder(SuperheroHolder holder, int position) {
+        if (!Objects.equals(username, postList.get(position).getUserPost().getUsername())) {
+            holder.postDelete.setVisibility(View.GONE);
+            holder.postMessage.setTextColor(Color.parseColor("#000000"));
+        } else {
+            holder.postDelete.setVisibility(View.VISIBLE);
+            holder.postMessage.setTextColor(Color.parseColor("#808080"));
+        }
         holder.postMessage.setText(postList.get(position).getMessage());
         holder.postLikes.setText(postList.get(position).getLikes().toString() + " Likes!");
         holder.postUsername.setText("@" + postList.get(position).getUserPost().getUsername());
@@ -107,7 +118,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
             postDate = view.findViewById(R.id.tvListPostDate);
 
             postDelete = view.findViewById(R.id.bListDelete);
-
             postMessage.setOnClickListener(v -> editPost(getAdapterPosition()));
             postUsername.setOnClickListener(v -> userDetails(getAdapterPosition()));
             postDelete.setOnClickListener(v -> deletePost(getAdapterPosition()));
@@ -116,6 +126,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
 
 
     private void deletePost(int adapterPosition) {
+
         Post post = postList.get(adapterPosition);
         deletePostPresenter.deletePost(post.getId(), token);
         //TODO: Si no se borra correctamente, no borrar de la lista
@@ -125,10 +136,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.SuperheroHolde
 
     private void editPost(int adapterPosition) {
         Post post = postList.get(adapterPosition);
-        Intent intent = new Intent(context, AddPostView.class);
-        intent.putExtra("userId", postList.get(adapterPosition).getUserPost().getId());
-        intent.putExtra("editPost", post);
-        context.startActivity(intent);
+        if (Objects.equals(username, post.getUserPost().getUsername())) {
+            Intent intent = new Intent(context, AddPostView.class);
+            intent.putExtra("userId", postList.get(adapterPosition).getUserPost().getId());
+            intent.putExtra("editPost", post);
+            context.startActivity(intent);
+        } else {
+            return;
+        }
+
     }
 
     private void userDetails(int adapterPosition) {

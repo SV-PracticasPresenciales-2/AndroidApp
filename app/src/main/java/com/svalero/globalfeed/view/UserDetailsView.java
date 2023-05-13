@@ -82,7 +82,7 @@ public class UserDetailsView extends AppCompatActivity implements PostListContra
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter = new PostAdapter(this, postList, intentFrom, persistData.getToken());
+        adapter = new PostAdapter(this, postList, intentFrom, persistData.getToken(), persistData.getUsername());
         recyclerView.setAdapter(adapter);
     }
 
